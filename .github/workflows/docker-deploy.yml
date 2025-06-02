@@ -2,7 +2,8 @@ name: FastAPI CI/CD
 
 on:
   push:
-    branches: [ "main" ]  # Triggers on main branch pushes
+    branches: 
+    - master  # Triggers on main branch pushes
 
 jobs:
   build-and-push:
