@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Launch an EC2 instance (Free Tier eligible)
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0c2b8ca1dad447f8a  # Amazon Linux 2023 in us-east-1 (free tier)
+      InstanceType: t2.micro          # Free tier instance type
+      KeyName: krianglekey            # Replace with your actual EC2 key pair name
+      Tags:
+        - Key: Name
+          Value: CFN-Test-EC2
