@@ -52,6 +52,11 @@ security = HTTPBearer()
 
 # --- Routes ---
 
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the FastAPI application!"}
+
 @app.post("/register-client", response_model=RegisterClientResponse, tags=["Auth"])
 async def register_client(data: RegisterClientRequest):
     client_id = str(uuid.uuid4())
