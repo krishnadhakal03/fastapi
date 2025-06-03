@@ -2,11 +2,11 @@ name: FastAPI CI/CD
 
 on:
   push:
-    branches: 
-    - master  # Triggers on main branch pushes
+    branches:
+      - master  # Trigger on pushes to master branch
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,31 +19,27 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}     # Set this secret in GitHub repo
+          password: ${{ secrets.DOCKER_PASSWORD }}     # Set this secret in GitHub repo
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: krishnadhakal03/fastapi-app:latest
+          tags: krishnadhakal03/fastapi-app:latest    # Change to your DockerHub repo name
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}       # GitHub secret
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # GitHub secret
+          aws-region: ${{ secrets.AWS_REGION }}                      # GitHub secret, e.g., us-east-1
 
       - name: Update ECS service
-        uses: aws-actions/amazon-ecs-update-service@v1
+        uses: aws-actions/amazon-ecs-update-service@v1.1.0
         with:
-          cluster: fastapi-cluster
-          service: fastapi-ecs-test-FastAPIService-zVzWNLCdC8ii
-          task-definition: fastapi-task
-          wait-for-service-stability: true    
-
-
-
-          
+          cluster: fastapi-cluster                                 # Your ECS cluster name
+          service: fastapi-ecs-test-FastAPIService-zVzWNLCdC8ii    # Your ECS service name
+          task-definition: fastapi-task                             # Your task definition family name
+          wait-for-service-stability: true
