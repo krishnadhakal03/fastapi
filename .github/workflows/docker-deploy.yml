@@ -27,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: krishnadockeruser/fastapi-app:latest
+          tags: krishnadhakal03/fastapi-app:latest
