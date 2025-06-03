@@ -28,3 +28,22 @@ jobs:
           context: .
           push: true
           tags: krishnadhakal03/fastapi-app:latest
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Update ECS service
+        uses: aws-actions/amazon-ecs-update-service@v1
+        with:
+          cluster: fastapi-cluster
+          service: fastapi-ecs-test-FastAPIService-zVzWNLCdC8ii
+          task-definition: fastapi-task
+          wait-for-service-stability: true    
+
+
+
+          

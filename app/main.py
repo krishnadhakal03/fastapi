@@ -55,7 +55,7 @@ security = HTTPBearer()
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the FastAPI application!"}
+    return {"message": "Welcome to the FastAPI application! CICD check"}
 
 @app.post("/register-client", response_model=RegisterClientResponse, tags=["Auth"])
 async def register_client(data: RegisterClientRequest):
