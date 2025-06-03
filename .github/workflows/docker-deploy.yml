@@ -37,7 +37,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}                      # GitHub secret, e.g., us-east-1
 
       - name: Update ECS service
-        uses: aws-actions/amazon-ecs-update-service@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           cluster: fastapi-cluster                                 # Your ECS cluster name
           service: fastapi-ecs-test-FastAPIService-zVzWNLCdC8ii    # Your ECS service name
